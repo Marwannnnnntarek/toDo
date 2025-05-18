@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo/features/all/presentation/views/widgets/header.dart';
 import 'package:todo/features/all/presentation/views/widgets/task_row.dart';
 
-class AllTasksBody extends StatelessWidget {
-  const AllTasksBody({
+class CompletedTasksBody extends StatelessWidget {
+  const CompletedTasksBody({
     super.key,
     required this.values,
     required this.onChanged,
@@ -17,10 +17,10 @@ class AllTasksBody extends StatelessWidget {
     return Column(
       children: [
         const Header(
-          title: 'Tasks',
-          date: '15 october',
-          icon: Icon(Icons.add_circle),
-          color: Colors.white,
+          title: 'Completed',
+          date: '15 june',
+          icon: Icon(Icons.done, color: Colors.white),
+          color: Color(0xff008080),
         ),
         SizedBox(height: 97),
         Expanded(

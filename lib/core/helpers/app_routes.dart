@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:todo/features/add/presentation/views/add_tasks_view.dart';
 import 'package:todo/features/all/presentation/views/all_tasks_view.dart';
 import 'package:todo/features/completed/presentation/views/completed_tasks_view.dart';
 import 'package:todo/features/home/presentation/views/home_view.dart';
@@ -19,6 +20,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/CompletedTasksView',
       builder: (context, state) => const CompletedTasksView(),
+    ),
+    GoRoute(
+      path: '/AddTasksView',
+      builder: (context, state) => const AddTasksView(),
     ),
   ],
 );

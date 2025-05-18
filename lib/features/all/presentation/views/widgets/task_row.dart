@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TaskRow extends StatelessWidget {
   const TaskRow({super.key, required this.value, required this.onChanged});
@@ -26,7 +25,7 @@ class TaskRow extends StatelessWidget {
             children: [
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-                style: GoogleFonts.sendFlowers(
+                style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: Color(0xff737373),
@@ -38,7 +37,7 @@ class TaskRow extends StatelessWidget {
               ),
               Text(
                 '12:42 PM',
-                style: GoogleFonts.sendFlowers(
+                style: TextStyle(
                   color: Color(0xffA3A3A3),
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
