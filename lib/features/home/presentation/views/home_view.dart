@@ -12,6 +12,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _currentIndex = 0;
+  final PageController _controller = PageController(initialPage: 0);
 
   final List<Widget> _screens = const [
     AllTasksView(),
@@ -24,7 +25,16 @@ class _HomeViewState extends State<HomeView> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: _screens[_currentIndex], // Show selected screen
+        body: PageView(
+          controller: _controller,
+          onPageChanged: (page) {
+            setState(() {
+              // _currentIndex = page;
+              _currentIndex = page;
+            });
+          },
+          children: _screens,
+        ), // Show selected screen
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: Container(
@@ -61,11 +71,15 @@ class _HomeViewState extends State<HomeView> {
 
     return GestureDetector(
       onTap: () {
-        setState(() {
-          _currentIndex = index;
-        });
+        _controller.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
         width: 100,
         height: 31,
         decoration: BoxDecoration(
