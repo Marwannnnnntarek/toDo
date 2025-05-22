@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SaveButton extends StatelessWidget {
-  const SaveButton({super.key});
-
+  const SaveButton({super.key, this.onPressed});
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -10,7 +10,7 @@ class SaveButton extends StatelessWidget {
         width: 316,
         height: 46.32,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xff171717),
             foregroundColor: Colors.white,

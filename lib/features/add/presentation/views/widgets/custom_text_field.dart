@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, required this.hint});
+  const CustomTextField({
+    super.key,
+    required this.hint,
+    this.onSaved,
+    this.onChanged,
+  });
 
   final String hint;
+  final void Function(String?)? onSaved;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +19,16 @@ class CustomTextField extends StatelessWidget {
       child: SizedBox(
         width: 241,
         height: 31,
-        child: TextField(
+        child: TextFormField(
+          onSaved: onSaved,
+          onChanged: onChanged,
+          validator: (value) {
+            if (value?.isEmpty ?? true) {
+              return 'This field is required';
+            } else {
+              return null;
+            }
+          },
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: GoogleFonts.roboto(

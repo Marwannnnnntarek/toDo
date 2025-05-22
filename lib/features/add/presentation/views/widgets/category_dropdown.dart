@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoryDropdown extends StatefulWidget {
-  const CategoryDropdown({super.key});
+  final void Function(String?)? onSaved;
+  final void Function(String)? onChanged;
+  const CategoryDropdown({super.key, this.onSaved, this.onChanged});
 
   @override
   State<CategoryDropdown> createState() => _CategoryDropdownState();
@@ -42,7 +44,16 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
       child: SizedBox(
         width: 241,
         height: 31,
-        child: TextField(
+        child: TextFormField(
+          onSaved: widget.onSaved,
+          onChanged: widget.onChanged,
+          validator: (value) {
+            if (value?.isEmpty ?? true) {
+              return 'This field is required';
+            } else {
+              return null;
+            }
+          },
           controller: _controller,
           readOnly: true,
           decoration: InputDecoration(
