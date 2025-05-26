@@ -10,7 +10,6 @@ class CustomTextField extends StatelessWidget {
   });
 
   final String hint;
-  // final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
   final TextEditingController? controller;
 
