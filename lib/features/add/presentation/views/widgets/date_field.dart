@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DateField extends StatelessWidget {
-  const DateField({super.key, this.onSaved, this.onChanged});
-  final void Function(String?)? onSaved;
+  const DateField({super.key, this.onChanged, this.controller});
+  final TextEditingController? controller;
   final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
@@ -11,16 +11,9 @@ class DateField extends StatelessWidget {
       child: SizedBox(
         width: 241,
         height: 31,
-        child: TextFormField(
-          onSaved: onSaved,
+        child: TextField(
           onChanged: onChanged,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'This field is required';
-            } else {
-              return null;
-            }
-          },
+          controller: controller,
           decoration: InputDecoration(
             hintText: '10/20/24',
             hintStyle: GoogleFonts.roboto(

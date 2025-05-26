@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoryDropdown extends StatefulWidget {
-  final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
-  const CategoryDropdown({super.key, this.onSaved, this.onChanged});
+  final TextEditingController? controller;
+
+  const CategoryDropdown({super.key, this.onChanged, this.controller});
 
   @override
   State<CategoryDropdown> createState() => _CategoryDropdownState();
 }
 
 class _CategoryDropdownState extends State<CategoryDropdown> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
   String? selectedCategory;
 
   final List<String> categories = [
@@ -44,17 +45,10 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
       child: SizedBox(
         width: 241,
         height: 31,
-        child: TextFormField(
-          onSaved: widget.onSaved,
+        child: TextField(
           onChanged: widget.onChanged,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'This field is required';
-            } else {
-              return null;
-            }
-          },
-          controller: _controller,
+
+          controller: widget.controller,
           readOnly: true,
           decoration: InputDecoration(
             hintText: 'Choose a category',
@@ -105,9 +99,12 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
                     }).toList(),
                 onChanged: (String? newValue) {
                   setState(() {
-                    // selectedCategory = newValue;
-                    _controller.text = newValue ?? '';
+                    selectedCategory = newValue;
+                    controller.text = newValue ?? '';
                   });
+                  if (newValue != null) {
+                    widget.onChanged?.call(newValue);
+                  }
                 },
               ),
             ),

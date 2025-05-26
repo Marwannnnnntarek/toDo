@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
 class TaskRow extends StatelessWidget {
-  const TaskRow({super.key, required this.value, required this.onChanged});
+  const TaskRow({
+    super.key,
+    required this.value,
+    required this.onChanged,
+    required this.content,
+    required this.date,
+  });
 
   final bool? value;
   final Function(bool? p1) onChanged;
+  final String content;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +36,7 @@ class TaskRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                  content,
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
@@ -40,7 +48,7 @@ class TaskRow extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12:42 PM',
+                  date,
                   style: TextStyle(
                     color: Color(0xffA3A3A3),
                     fontSize: 13,

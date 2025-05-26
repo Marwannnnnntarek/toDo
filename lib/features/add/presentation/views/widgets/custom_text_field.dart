@@ -5,13 +5,14 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.hint,
-    this.onSaved,
     this.onChanged,
+    this.controller,
   });
 
   final String hint;
-  final void Function(String?)? onSaved;
+  // final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +20,9 @@ class CustomTextField extends StatelessWidget {
       child: SizedBox(
         width: 241,
         height: 31,
-        child: TextFormField(
-          onSaved: onSaved,
+        child: TextField(
+          controller: controller,
           onChanged: onChanged,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return 'This field is required';
-            } else {
-              return null;
-            }
-          },
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: GoogleFonts.roboto(

@@ -1,21 +1,38 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:todo/core/models/task_model.dart';
 import 'package:todo/features/add/data/cubits/add_task_cubit/add_task_states.dart';
+import 'package:todo/features/all/data/cubits/all_tasks_cubit/all_tasks_cubit.dart';
 
 class AddTaskCubit extends Cubit<AddTaskState> {
   AddTaskCubit() : super(AddTaskInitial());
 
-  // ignore: non_constant_identifier_names
-  AddTask(TaskModel taskModel) async {
-    emit(AddTaskLoading());
-    try {
-      var taskBox = Hive.box<TaskModel>('task_box');
-     
-      await taskBox.add(taskModel);
-       emit(AddTaskSuccess());
-    } catch (e) {
-      emit(AddTaskFailure(error: 'Error: $e'));
+  void updateName(String name) => emit(state.copyWith(name: name));
+  void updateCategory(String category) =>
+      emit(state.copyWith(category: category));
+  void updateDate(String date) => emit(state.copyWith(date: date));
+  void updateContent(String content) => emit(state.copyWith(content: content));
+
+  void saveTask(BuildContext context) async {
+    if (state.name.isNotEmpty &&
+        state.category.isNotEmpty &&
+        state.date.isNotEmpty &&
+        state.content.isNotEmpty) {
+      final task = TaskModel(
+        name: state.name,
+        category: state.category,
+        date: state.date,
+        content: state.content,
+      );
+
+      final box = Hive.box<TaskModel>('task_box');
+      await box.add(task);
+      // ignore: use_build_context_synchronously
+      context.read<AllTasksCubit>().loadTasks();
+      emit(AddTaskSuccess(taskModel: task));
+    } else {
+      emit(AddTaskError("Please fill all fields"));
     }
   }
 }
