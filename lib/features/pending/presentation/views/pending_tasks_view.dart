@@ -23,10 +23,6 @@ class _PendingTasksViewState extends State<PendingTasksView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: PendingTasksBody(values: taskValues, onChanged: updateTaskValue),
-      ),
-    );
+    return SafeArea(child: Scaffold(body: PendingTasksBody()));
   }
 }

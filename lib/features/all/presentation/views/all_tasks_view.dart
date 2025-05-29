@@ -23,10 +23,6 @@ class _AllTasksViewState extends State<AllTasksView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: AllTasksBody(values: taskValues, onChanged: updateTaskValue),
-      ),
-    );
+    return SafeArea(child: Scaffold(body: AllTasksBody()));
   }
 }

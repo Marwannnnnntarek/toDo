@@ -26,8 +26,8 @@ class _CompletedTasksViewState extends State<CompletedTasksView> {
     return SafeArea(
       child: Scaffold(
         body: CompletedTasksBody(
-          values: taskValues,
-          onChanged: updateTaskValue,
+          // values: taskValues,
+          // onChanged: updateTaskValue,
         ),
       ),
     );

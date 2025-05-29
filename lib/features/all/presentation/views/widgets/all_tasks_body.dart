@@ -6,14 +6,7 @@ import 'package:todo/features/all/presentation/views/widgets/header.dart';
 import 'package:todo/features/all/presentation/views/widgets/task_row.dart';
 
 class AllTasksBody extends StatelessWidget {
-  const AllTasksBody({
-    super.key,
-    required this.values,
-    required this.onChanged,
-  });
-
-  final List<bool?> values;
-  final Function(int index, bool? newValue) onChanged;
+  const AllTasksBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +14,32 @@ class AllTasksBody extends StatelessWidget {
       children: [
         const Header(
           title: 'Tasks',
-          date: '15 october',
+
           icon: Icon(Icons.add_circle),
           color: Colors.white,
         ),
-        SizedBox(height: 97),
+        const SizedBox(height: 97),
         Expanded(
           child: BlocBuilder<AllTasksCubit, AllTasksState>(
             builder: (context, state) {
-              if (state is AllTasksLoaded) {
+              if (state.status == AllTasksStatus.loaded) {
+                if (state.tasks.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'No tasks yet',
+                      style: TextStyle(fontSize: 16, color: Color(0xff737373)),
+                    ),
+                  );
+                }
                 return ListView.builder(
                   itemCount: state.tasks.length,
                   itemBuilder: (context, index) {
                     final task = state.tasks[index];
-                    return TaskRow(
-                      value: false,
-                      onChanged: (_) {},
-                      content: task.content,
-                      date: task.date.toString(), // Format this if needed
-                    );
+                    return TaskRow(value: task.isCompleted, taskIndex: index);
                   },
                 );
-              } else {
-                return const Center(child: CircularProgressIndicator());
               }
+              return const Center(child: CircularProgressIndicator());
             },
           ),
         ),

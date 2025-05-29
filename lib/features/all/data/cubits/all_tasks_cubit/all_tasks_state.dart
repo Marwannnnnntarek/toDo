@@ -1,11 +1,27 @@
 import 'package:todo/core/models/task_model.dart';
 
-abstract class AllTasksState {}
+enum AllTasksStatus { initial, loading, loaded, error }
 
-class AllTasksInitial extends AllTasksState {}
-
-class AllTasksLoaded extends AllTasksState {
+class AllTasksState {
   final List<TaskModel> tasks;
+  final AllTasksStatus status;
+  final String? errorMessage;
 
-  AllTasksLoaded({required this.tasks});
+  const AllTasksState({
+    this.tasks = const [],
+    this.status = AllTasksStatus.initial,
+    this.errorMessage,
+  });
+
+  AllTasksState copyWith({
+    List<TaskModel>? tasks,
+    AllTasksStatus? status,
+    String? errorMessage,
+  }) {
+    return AllTasksState(
+      tasks: tasks ?? this.tasks,
+      status: status ?? this.status,
+      errorMessage: errorMessage,
+    );
+  }
 }

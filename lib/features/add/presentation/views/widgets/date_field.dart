@@ -10,7 +10,7 @@ class DateField extends StatelessWidget {
     return Center(
       child: SizedBox(
         width: 241,
-        height: 31,
+
         child: TextField(
           onChanged: onChanged,
           controller: controller,

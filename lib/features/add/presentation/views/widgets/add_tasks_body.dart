@@ -21,13 +21,16 @@ class AddTasksBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AddTaskCubit, AddTaskState>(
       listener: (context, state) {
-        if (state is AddTaskSuccess) {
+        if (state.status == AddTaskStatus.success) {
           // Save task and maybe pop the screen
           context.go('/');
-        } else if (state is AddTaskError) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
+          ).showSnackBar(SnackBar(content: Text('Task added successfully!')));
+        } else if (state.status == AddTaskStatus.error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message ?? 'Something went wrong')),
+          );
         }
       },
       builder: (context, state) {
@@ -36,6 +39,8 @@ class AddTasksBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if (state.status == AddTaskStatus.saving)
+                const LinearProgressIndicator(),
               CancelButton(context: context),
               const SizedBox(height: 39),
               const AddTitle(),

@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class Header extends StatelessWidget {
-  const Header({
+class Header3 extends StatelessWidget {
+  const Header3({
     super.key,
     required this.title,
 
@@ -35,14 +35,18 @@ class Header extends StatelessWidget {
           color: Color(0xff757575),
         ),
       ),
-      trailing: IconButton(
-        color: Colors.black,
-        iconSize: 40,
-        padding: EdgeInsets.zero,
-        icon: icon,
-        onPressed: () {
-          context.go('/AddTasksView');
-        },
+      trailing: SizedBox(
+        width: 42,
+        height: 42,
+        child: CircleAvatar(
+          backgroundColor: color,
+          child: IconButton(
+            icon: icon,
+            onPressed: () {
+              context.go('/AddTasksView');
+            },
+          ),
+        ),
       ),
     );
   }

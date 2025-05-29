@@ -18,10 +18,11 @@ class CustomTextField extends StatelessWidget {
     return Center(
       child: SizedBox(
         width: 241,
-        height: 31,
         child: TextField(
           controller: controller,
           onChanged: onChanged,
+          maxLines: null,
+          minLines: 1,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: GoogleFonts.roboto(

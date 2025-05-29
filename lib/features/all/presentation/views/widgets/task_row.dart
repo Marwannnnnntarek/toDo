@@ -1,68 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive/hive.dart';
+import 'package:todo/core/models/task_model.dart';
+import 'package:todo/features/all/presentation/views/widgets/delete_task_dialog.dart';
+import 'package:todo/features/all/presentation/views/widgets/edit_task_dialog.dart';
+import 'package:todo/features/all/presentation/views/widgets/slidable_action_button.dart';
+import 'package:todo/features/all/presentation/views/widgets/task_content_card.dart';
 
 class TaskRow extends StatelessWidget {
-  const TaskRow({
-    super.key,
-    required this.value,
-    required this.onChanged,
-    required this.content,
-    required this.date,
-  });
+  const TaskRow({super.key, required this.taskIndex, this.value});
 
   final bool? value;
-  final Function(bool? p1) onChanged;
-  final String content;
-  final String date;
+  final int taskIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 34),
-      child: Row(
-        children: [
-          Checkbox(
-            tristate: true,
-            value: value ?? false, // Safe fallback in case value is null
-            onChanged: onChanged,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-            side: const BorderSide(color: Color(0xffE8E8E8), width: 2),
-            checkColor: Colors.white,
-            activeColor: const Color(0xff008080),
+    final task = Hive.box<TaskModel>('task_box').getAt(taskIndex);
+    if (task == null) return const SizedBox();
+
+    return SlidableAutoCloseBehavior(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+        child: Slidable(
+          key: Key(task.key.toString()),
+          endActionPane: ActionPane(
+            motion: const DrawerMotion(),
+            extentRatio: 0.5,
+            children: [
+              SlidableActionButton(
+                color: const Color(0xff008080),
+                icon: Icons.edit,
+                label: 'Edit',
+                onTap: () {
+                  HapticFeedback.lightImpact();
+                  showDialog(
+                    context: context,
+                    builder:
+                        (_) => EditTaskDialog(task: task, taskIndex: taskIndex),
+                  );
+                },
+              ),
+              SlidableActionButton(
+                color: const Color(0xffFF6F61),
+                icon: Icons.delete,
+                label: 'Del',
+                onTap: () {
+                  HapticFeedback.heavyImpact();
+                  showDialog(
+                    context: context,
+                    builder: (_) => DeleteTaskDialog(taskIndex: taskIndex),
+                  );
+                },
+              ),
+            ],
           ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  content,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff737373),
-                    decoration:
-                        value == true
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                  ),
-                ),
-                Text(
-                  date,
-                  style: TextStyle(
-                    color: Color(0xffA3A3A3),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    decoration:
-                        value == true
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          child: TaskContentCard(task: task, taskIndex: taskIndex),
+        ),
       ),
     );
   }

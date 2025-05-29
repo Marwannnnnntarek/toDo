@@ -29,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
           controller: _controller,
           onPageChanged: (page) {
             setState(() {
-              // _currentIndex = page;
+              
               _currentIndex = page;
             });
           },

@@ -44,7 +44,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
     return Center(
       child: SizedBox(
         width: 241,
-        height: 31,
+
         child: TextField(
           onChanged: widget.onChanged,
 
