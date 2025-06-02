@@ -4,7 +4,11 @@ import 'package:todo/core/models/task_model.dart';
 import 'package:todo/features/all/data/cubits/all_tasks_cubit/all_tasks_cubit.dart';
 
 class TaskContentCard extends StatelessWidget {
-  const TaskContentCard({required this.task, required this.taskIndex});
+  const TaskContentCard({
+    super.key,
+    required this.task,
+    required this.taskIndex,
+  });
 
   final TaskModel task;
   final int taskIndex;
