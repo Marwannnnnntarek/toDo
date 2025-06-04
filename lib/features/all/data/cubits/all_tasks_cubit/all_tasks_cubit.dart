@@ -8,8 +8,9 @@ class AllTasksCubit extends Cubit<AllTasksState> {
 
   AllTasksCubit() : super(const AllTasksState()) {
     loadTasks();
-    // Optional: auto-refresh on Hive changes
-    _taskBox.listenable().addListener(loadTasks);
+    _taskBox.listenable().addListener(
+      loadTasks,
+    ); // auto-refresh on Hive changes
   }
 
   void loadTasks() {

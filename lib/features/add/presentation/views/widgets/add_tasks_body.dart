@@ -34,6 +34,8 @@ class AddTasksBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        final res = ["x", "y", "z"].fold("", (total, current) => current);
+        print(res);
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           child: Column(
