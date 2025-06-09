@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo/core/helpers/app_routes.dart';
 import 'package:todo/features/auth/data/services/auth_services.dart';
 
 class RegisterBody extends StatefulWidget {
@@ -224,7 +225,7 @@ class _RegisterBodyState extends State<RegisterBody>
                             if (user != null) {
                               // Optional: you could store name to Firestore here if you want
                               context.go(
-                                '/HomwView',
+                                AppRoutes.home,
                               ); // Navigate to home on success
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -272,7 +273,7 @@ class _RegisterBodyState extends State<RegisterBody>
                     child: Center(
                       child: TextButton(
                         onPressed: () {
-                          context.go('/LoginView');
+                          context.go(AppRoutes.login);
                         },
                         child: const Text(
                           'Already have an account? Sign In',
