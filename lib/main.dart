@@ -1,20 +1,16 @@
-// ignore: deprecated_member_use, library_prefixes
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo/core/helpers/app_routes.dart';
-import 'package:todo/core/models/task_model.dart';
-import 'package:todo/features/add_task/data/cubits/add_task_cubit/add_task_cubit.dart';
-import 'package:todo/features/home/data/cubits/all_tasks_cubit/all_tasks_cubit.dart';
+import 'package:todo/features/auth/data/cubits/cubit/login_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   try {
-    await Hive.initFlutter();
-    Hive.registerAdapter(TaskModelAdapter());
-    await Hive.openBox<TaskModel>('task_box');
+    // await Hive.initFlutter();
+    // Hive.registerAdapter(TaskModelAdapter());
+    // await Hive.openBox<TaskModel>('task_box');
     // await box.clear(); // Clear the box for fresh start
     runApp(const MyApp());
   } catch (e) {
@@ -37,8 +33,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => AllTasksCubit()),
-        BlocProvider(create: (_) => AddTaskCubit()),
+        BlocProvider(create: (context) => LoginCubit()),
+        // BlocProvider(create: (_) => AllTasksCubit()),
+        // BlocProvider(create: (_) => AddTaskCubit()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRoutes.router,

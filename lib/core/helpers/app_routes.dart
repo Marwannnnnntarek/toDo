@@ -20,27 +20,27 @@ class AppRoutes {
   static final GoRouter router = GoRouter(
     initialLocation: login,
     routes: [
-      GoRoute(path: home, builder: (context, state) => const HomeView()),
-      GoRoute(
-        path: allTasks,
-        builder: (context, state) => const AllTasksView(),
-      ),
-      GoRoute(
-        path: pendingTasks,
-        builder: (context, state) => const PendingTasksView(),
-      ),
-      GoRoute(
-        path: completedTasks,
-        builder: (context, state) => const CompletedTasksView(),
-      ),
-      GoRoute(
-        path: addTasks,
-        builder: (context, state) => const AddTasksView(),
-      ),
-      GoRoute(
-        path: register,
-        builder: (context, state) => const RegisterView(),
-      ),
+      // GoRoute(path: home, builder: (context, state) => const HomeView()),
+      // GoRoute(
+      //   path: allTasks,
+      //   builder: (context, state) => const AllTasksView(),
+      // ),
+      // GoRoute(
+      //   path: pendingTasks,
+      //   builder: (context, state) => const PendingTasksView(),
+      // ),
+      // GoRoute(
+      //   path: completedTasks,
+      //   builder: (context, state) => const CompletedTasksView(),
+      // ),
+      // GoRoute(
+      //   path: addTasks,
+      //   builder: (context, state) => const AddTasksView(),
+      // ),
+      // GoRoute(
+      //   path: register,
+      //   builder: (context, state) => const RegisterView(),
+      //),
       GoRoute(path: login, builder: (context, state) => const LoginView()),
     ],
     errorBuilder:
