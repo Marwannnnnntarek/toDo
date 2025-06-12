@@ -2,28 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/core/helpers/app_routes.dart';
-import 'package:todo/features/auth/data/cubits/cubit/login_cubit.dart';
+import 'package:todo/features/auth/data/cubits/login/login_cubit.dart';
+import 'package:todo/features/auth/data/cubits/register/cubit/register_cubit.dart';
+import 'package:todo/firebase_options.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  try {
-    // await Hive.initFlutter();
-    // Hive.registerAdapter(TaskModelAdapter());
-    // await Hive.openBox<TaskModel>('task_box');
-    // await box.clear(); // Clear the box for fresh start
-    runApp(const MyApp());
-  } catch (e) {
-    debugPrint('Error initializing app: $e');
-    // You might want to show an error screen here
-    runApp(
-      MaterialApp(
-        home: Scaffold(
-          body: Center(child: Text('Failed to initialize app: $e')),
-        ),
-      ),
-    );
-  }
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (context) => RegisterCubit()),
         // BlocProvider(create: (_) => AllTasksCubit()),
         // BlocProvider(create: (_) => AddTaskCubit()),
       ],

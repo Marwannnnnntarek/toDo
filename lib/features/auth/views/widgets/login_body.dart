@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo/core/helpers/app_routes.dart';
-import 'package:todo/features/auth/data/cubits/cubit/login_cubit.dart';
+import 'package:todo/features/auth/data/cubits/login/login_cubit.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});

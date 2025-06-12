@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:todo/features/add_task/presentation/views/add_tasks_view.dart';
 import 'package:todo/features/auth/views/login_view.dart';
 import 'package:todo/features/auth/views/register_view.dart';
-import 'package:todo/features/home/views/all_tasks_view.dart';
-import 'package:todo/features/home/views/completed_tasks_view.dart';
 import 'package:todo/features/home/views/home_view.dart';
-import 'package:todo/features/home/views/pending_tasks_view.dart';
 
 class AppRoutes {
   static const String login = '/LoginView';
@@ -20,7 +16,7 @@ class AppRoutes {
   static final GoRouter router = GoRouter(
     initialLocation: login,
     routes: [
-      // GoRoute(path: home, builder: (context, state) => const HomeView()),
+      GoRoute(path: home, builder: (context, state) => const HomeView()),
       // GoRoute(
       //   path: allTasks,
       //   builder: (context, state) => const AllTasksView(),
@@ -37,10 +33,10 @@ class AppRoutes {
       //   path: addTasks,
       //   builder: (context, state) => const AddTasksView(),
       // ),
-      // GoRoute(
-      //   path: register,
-      //   builder: (context, state) => const RegisterView(),
-      //),
+      GoRoute(
+        path: register,
+        builder: (context, state) => const RegisterView(),
+      ),
       GoRoute(path: login, builder: (context, state) => const LoginView()),
     ],
     errorBuilder:
